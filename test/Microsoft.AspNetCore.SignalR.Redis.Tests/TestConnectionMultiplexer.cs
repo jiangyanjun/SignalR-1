@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Connections.Internal;
 using StackExchange.Redis;
 
 namespace Microsoft.AspNetCore.SignalR.Redis.Tests
@@ -286,7 +287,7 @@ namespace Microsoft.AspNetCore.SignalR.Redis.Tests
 
         public async Task<long> PublishAsync(RedisChannel channel, RedisValue message, CommandFlags flags = CommandFlags.None)
         {
-            await Task.Yield();
+            await AwaitableThreadPool.Yield();
             return Publish(channel, message, flags);
         }
 

@@ -32,7 +32,7 @@ namespace Microsoft.AspNetCore.SignalR.Tests
 
         public TransferFormat ActiveFormat { get; set; }
 
-        public TestClient(bool synchronousCallbacks = false, IHubProtocol protocol = null, IInvocationBinder invocationBinder = null, bool addClaimId = false)
+        public TestClient(string userId = null, bool synchronousCallbacks = false, IHubProtocol protocol = null, IInvocationBinder invocationBinder = null, bool addClaimId = false)
         {
             var scheduler = synchronousCallbacks ? PipeScheduler.Inline : null;
             var options = new PipeOptions(readerScheduler: scheduler, writerScheduler: scheduler, useSynchronizationContext: false);
@@ -43,7 +43,7 @@ namespace Microsoft.AspNetCore.SignalR.Tests
             Connection.Features.Set<ITransferFormatFeature>(this);
             Connection.Features.Set<IConnectionHeartbeatFeature>(this);
 
-            var claimValue = Interlocked.Increment(ref _id).ToString();
+            var claimValue = userId ?? Interlocked.Increment(ref _id).ToString();
             var claims = new List<Claim> { new Claim(ClaimTypes.Name, claimValue) };
             if (addClaimId)
             {
