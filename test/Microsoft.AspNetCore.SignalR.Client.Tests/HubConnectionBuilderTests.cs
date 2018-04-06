@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Internal.Protocol;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Xunit;
@@ -83,7 +84,7 @@ namespace Microsoft.AspNetCore.SignalR.Client.Tests
                 // {
                 //     SerializationMethod = SerializationMethod.Array
                 // }
-            };
+            }).Services.BuildServiceProvider();
 
             var actualProtocol = Assert.IsType<MessagePackHubProtocol>(serviceProvider.GetService<IHubProtocol>());
             //Assert.Equal(SerializationMethod.Array, actualProtocol.SerializationContext.SerializationMethod);
