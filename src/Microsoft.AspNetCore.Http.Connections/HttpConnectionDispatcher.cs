@@ -648,8 +648,6 @@ namespace Microsoft.AspNetCore.Http.Connections
 
         private HttpConnectionContext CreateConnection(HttpConnectionOptions options)
         {
-            options.TransportMaxBufferSize = 2000;
-            options.ApplicationMaxBufferSize = 2000;
             var transportPipeOptions = new PipeOptions(pauseWriterThreshold: options.TransportMaxBufferSize, resumeWriterThreshold: options.TransportMaxBufferSize / 2, readerScheduler: PipeScheduler.ThreadPool, useSynchronizationContext: false);
             var appPipeOptions = new PipeOptions(pauseWriterThreshold: options.ApplicationMaxBufferSize, resumeWriterThreshold: options.ApplicationMaxBufferSize / 2, readerScheduler: PipeScheduler.ThreadPool, useSynchronizationContext: false);
 
